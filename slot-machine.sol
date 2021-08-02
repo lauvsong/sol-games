@@ -17,9 +17,9 @@ contract Game {
         uint third = spin();
         
         if (first == 7 && (first == second) && (second == third)){
-            results[msg.sender] = 0;
-        } else {
             results[msg.sender] = 1;
+        } else {
+            results[msg.sender] = 2;
         }
     }
     
@@ -31,9 +31,9 @@ contract Game {
     // print result
     function getResult(address user) external returns (string memory) {
         
-        require(results[user] < 0, "User not exsts");
+        require(results[user] != 0, "User not exists");
         
-        if (results[user] == 0) return outputs[0];
+        if (results[user] == 1) return outputs[0];
         else return outputs[1];
     }
 }
