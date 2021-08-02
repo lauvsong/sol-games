@@ -25,7 +25,7 @@ contract Game {
     
     // spin wheel (get random value)
     function spin() private view returns (uint) {
-        return uint(keccak256(abi.encodePacked(block.timestamp))) % 10;
+        return uint(keccak256(abi.encodePacked(block.timestamp))) % 10 + 1;
     }
     
     // print result
