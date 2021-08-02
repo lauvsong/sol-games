@@ -7,7 +7,7 @@ contract Game {
     
     mapping(address => uint8) public choices;
     
-    function play(uint8 choice) external {
+    function play(uint8 choice) payable external {
         // check the move is valid
         require(choice == ROCK || choice == PAPER || choice == SCISSORS);
         // check the player hasnt played the move
