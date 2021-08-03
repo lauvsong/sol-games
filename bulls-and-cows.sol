@@ -12,6 +12,7 @@ contract Game {
     uint[3] public answer;
     
     // play bulls and cows
+    // input ex : [2,8,9]
     function play(uint[3] memory num) external payable {
         clearAnswer();
         setAnswer();
