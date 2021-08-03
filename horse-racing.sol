@@ -10,6 +10,7 @@ contract Game {
     
     mapping(address => Voter) voters;
     uint winner;
+    bool raceFinish;
     
     // betting
     // input : horse to vote
@@ -25,10 +26,12 @@ contract Game {
     // set winner horse
     function race() external {
         winner = random();
+        raceFinish = true;
     }
     
     // get result :: success or fail
     function getResult() external returns (string memory){
+        require(raceFinish, "Race first");
         require(voters[msg.sender].isExist, "User not exists");
         if (voters[msg.sender].horse == winner){
             return "Success";
