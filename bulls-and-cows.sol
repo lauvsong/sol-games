@@ -1,48 +1,62 @@
-pragma solidity ^0.6.0;
+pragma solidity ^0.8.4;
 
 contract Game {
     
     struct Gamer {
-        bool result;
+        uint strike;
+        uint ball;
         bool isExist;
     }
     
     mapping(address => Gamer) public gamers;
-    string[3] public outputs = ["S", "B", "OUT"];
-    uint answer;
+    uint[3] public answer;
     
     // play bulls and cows
-    function play(uint num) external payable {
+    function play(uint[3] memory num) external payable {
         clearAnswer();
         setAnswer();
         
         gamers[msg.sender].isExist = true;
         
-        if (num == answer) {
-            gamers[msg.sender].result = true;
+        for (uint i=0;i<3;i++) {
+            if (num[i] == answer[i]) {
+                gamers[msg.sender].strike += 1;
+            } else {
+                for (uint j=0;j<3;j++) {
+                    if (num[i] == answer[j]) {
+                        gamers[msg.sender].ball += 1;
+                    }
+                }
+            }
         }
     }
     
     // set correct answer
     function setAnswer() private {
         for (uint i=0; i<3; i++) {
-            answer = answer*10 + random();
+            answer[i] = random();
         }
     }
     
     // set answer 0
     function clearAnswer() private {
-        answer = 0;
+        answer[0] = 0;
+        answer[1] = 0;
+        answer[2]= 0;
     }
     
     // get game result
-    function getResult(address user) external returns (string memory) {
+    function getResult(address user) external payable {
         require(gamers[user].isExist, "User not exists");
-        return answer;
+        emit Strike(gamers[user].strike);
+        emit Ball(gamers[user].ball);
     }
     
     // get random value
     function random() private view returns (uint) {
         return uint(keccak256(abi.encodePacked(block.timestamp))) % 10;
     }
+    
+    event Strike(uint strike);
+    event Ball(uint ball);
 }
