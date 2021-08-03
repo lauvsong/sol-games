@@ -16,7 +16,7 @@ contract Game {
     // input : horse to vote
     function bet(uint horse) external payable {
         require(!voters[msg.sender].isExist, "Already bet");
-        require(horse >= 1 && horse <= 3, "only 1~3 available");
+        require(horse == 1 || horse == 2 || horse == 3, "Invalid choice :: only 1,2,3 available");
         
         voters[msg.sender].horse = horse;
         voters[msg.sender].val = msg.value;
