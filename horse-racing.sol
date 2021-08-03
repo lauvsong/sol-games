@@ -11,16 +11,22 @@ contract Game {
     mapping(address => Voter) voters;
     uint winner;
     
+    // betting
+    // input : horse to vote
     function bet(uint horse) external payable {
+        require(horse >= 1 && horse <= 3, "only 1~3 available");
+        
         voters[msg.sender].horse = horse;
         voters[msg.sender].val = msg.value;
         voters[msg.sender].isExist = true;
     }
     
+    // set winner horse
     function play() external {
         winner = random();
     }
     
+    // get result :: success or fail
     function getResult(address user) external returns (string memory){
         require(voters[user].isExist, "User not exists");
         if (voters[user].horse == winner){

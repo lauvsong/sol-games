@@ -19,6 +19,7 @@ contract Game {
         
         gamers[msg.sender].isExist = true;
         
+        // count strike, ball
         for (uint i=0;i<3;i++) {
             if (num[i] == answer[i]) {
                 gamers[msg.sender].strike += 1;
@@ -46,7 +47,7 @@ contract Game {
         answer[2]= 0;
     }
     
-    // get game result
+    // get game result :: strike & ball
     function getResult(address user) external payable {
         require(gamers[user].isExist, "User not exists");
         emit Strike(gamers[user].strike);

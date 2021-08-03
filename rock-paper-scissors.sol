@@ -17,7 +17,8 @@ contract Game {
         choices[msg.sender] = choice;
     }
     
-    function evaluate(address alice, address bob) external view returns (address) {
+    // get result
+    function getResult(address alice, address bob) external view returns (address) {
         //  if draw
         if (choices[alice] == choices[bob]) {
             return address(0);

@@ -9,8 +9,8 @@ contract Game {
     
     mapping(address => Gamer) public gamers;
     
-    string[9] public items = ["CHERRY", "LEMON", "DIAMOND", "WATERMELON", "BELL", "HEART", "SEVEN", "BAR", "HORSE"];
-    string[2] public outputs = ["JACKPOT" , "Try again"];
+    string[9] public items = ["CHERRY", "LEMON", "DIAMOND", "WATERMELON", "BELL", "HEART", "SEVEN", "BAR", "HORSE"]; // slot items
+    string[2] public outputs = ["JACKPOT" , "Try again"]; // output strings
     
     // start slot machine
     function start() external payable {
@@ -24,6 +24,7 @@ contract Game {
         uint second = spin();
         uint third = spin();
         
+        // is jackpot
         if (first == 7 && (first == second) && (second == third)){
             gamers[msg.sender].jackpot = true;
         }
