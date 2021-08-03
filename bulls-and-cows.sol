@@ -48,10 +48,10 @@ contract Game {
     }
     
     // get game result :: strike & ball
-    function getResult(address user) external payable {
-        require(gamers[user].isExist, "User not exists");
-        emit Strike(gamers[user].strike);
-        emit Ball(gamers[user].ball);
+    function getResult() external payable {
+        require(gamers[msg.sender].isExist, "User not exists");
+        emit Strike(gamers[msg.sender].strike);
+        emit Ball(gamers[msg.sender].ball);
     }
     
     // get random value

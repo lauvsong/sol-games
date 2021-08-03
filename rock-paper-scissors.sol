@@ -8,10 +8,8 @@ contract Game {
     mapping(address => uint8) public choices;
     
     function play(uint8 choice) payable external {
-        // check the move is valid
-        require(choice == ROCK || choice == PAPER || choice == SCISSORS);
-        // check the player hasnt played the move
-        require(choices[msg.sender] == 0);
+        require(choice == ROCK || choice == PAPER || choice == SCISSORS); // check the move is valid
+        require(choices[msg.sender] == 0); // check the player hasnt played the move
         
         //set choice
         choices[msg.sender] = choice;

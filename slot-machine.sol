@@ -36,11 +36,11 @@ contract Game {
     }
     
     // print result
-    function getResult(address user) external returns (string memory) {
+    function getResult() external returns (string memory) {
         
-        require(gamers[user].isExist, "User not exists");
+        require(gamers[msg.sender].isExist, "User not exists");
         
-        if (gamers[user].jackpot) return outputs[0];
+        if (gamers[msg.sender].jackpot) return outputs[0];
         else return outputs[1];
     }
 }

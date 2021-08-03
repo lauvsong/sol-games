@@ -14,6 +14,7 @@ contract Game {
     // betting
     // input : horse to vote
     function bet(uint horse) external payable {
+        require(!voters[msg.sender].isExist, "Already bet");
         require(horse >= 1 && horse <= 3, "only 1~3 available");
         
         voters[msg.sender].horse = horse;
@@ -22,14 +23,14 @@ contract Game {
     }
     
     // set winner horse
-    function play() external {
+    function race() external {
         winner = random();
     }
     
     // get result :: success or fail
-    function getResult(address user) external returns (string memory){
-        require(voters[user].isExist, "User not exists");
-        if (voters[user].horse == winner){
+    function getResult() external returns (string memory){
+        require(voters[msg.sender].isExist, "User not exists");
+        if (voters[msg.sender].horse == winner){
             return "Success";
         } else return "Fail";
     }
